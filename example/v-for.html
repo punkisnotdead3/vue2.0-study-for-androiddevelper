@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>v-for</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,inital-scale=1">
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+</head>
+
+<body>
+    <h1>HelloWorld</h1>
+    <hr>
+    <div id="app">
+        <!-- 无序列表 -->
+        <ul>
+            <!-- 需要循环哪个标签 就在哪个标签上循环 -->
+            <li v-for="item in items">
+                {{item}}
+            </li>
+        </ul>
+
+        <ul>
+            <!-- 排序的写法  computed 函数 -->
+            <li v-for="item in sortItems">
+                {{item}}
+            </li>
+        </ul>
+        <ul>
+            <!-- 遍历对象 -->
+            <li v-for="stu in students">
+                {{stu.name}}------{{stu.age}}
+            </li>
+        </ul>
+
+        <ul>
+            <!-- 遍历对象  带索引  index 这个字符串随便写什么 值都可以 都代表索引的值-->
+            <li v-for="(stu,index) in students">
+                {{index}} :{{stu.name}}------{{stu.age}}
+            </li>
+        </ul>
+
+        <ul>
+            <!-- 遍历对象  带索引  index 这个字符串随便写什么 值都可以 都代表索引的值-->
+            <li v-for="(stu,index) in sortStudents">
+                {{index}} :{{stu.name}}------{{stu.age}}
+            </li>
+        </ul>
+    </div>
+
+    <script type="text/javascript">
+        //排序数字
+        function sortNumber(a, b) {
+            return a - b
+        }
+
+        //排序对象数组
+        function sortByObjectKey(array, key) {
+            return array.sort(function (a, b) {
+                var x = a[key]
+                var y = b[key]
+                return ((x < y) ? -1 : ((x > y) ? 1 : 0))
+            });
+        }
+
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                items: [23, 45, 667, 772, 77, 88],
+                students: [{
+                        name: 'wuyue',
+                        age: 35
+                    },
+                    {
+                        name: 'wuyue2',
+                        age: 34
+                    }, {
+                        name: 'wuyue3',
+                        age: 36
+                    },
+                ]
+
+            },
+
+            computed: {
+                sortItems: function () {
+                    // 因为js中 array的 sort方法 排序是根据unicode编码来的，所以排序是不准的，这里需要我们自己定义一个判断大小的函数
+                    return this.items.sort(sortNumber);
+                },
+
+                sortStudents:function(){
+                    //TODO: 这里 如果不加slice 0  那么会将students数组本身进行排序，但是如果增加了这个slice0 那么就不会将原来的数组进行排序 
+                    //只会返回新的数组 这是为啥？
+                    // return sortByObjectKey(this.students.slice(0),'age');
+                    return sortByObjectKey(this.students,'age');
+
+
+
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
