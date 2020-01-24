@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>v-text & v-html</title>
+    <meta charset="utf-8">
+    <!-- width: viewport 的宽度[device-width | pixel_value]width如果直接设置pixel_value数值，大部分的安卓手机不支持，但是iOS支持； -->
+    <meta name="viewport" content="width=device-width,inital-scale=1">
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+</head>
+
+<body>
+    <h1>v-text & v-html</h1>
+    <hr>
+    <div id="app">
+
+        <!-- 你可以把下面script的标签 都注释掉 然后再看看这个页面的显示  就知道v-text 和 直接用 {{}} 包裹起来 是啥区别了  有条件当然是用v-text 体验更好-->
+        <span>{{message}}</span> ===<span v-text="message"></span>
+
+        <!-- 如果是要输出一段html标签 那么这里就必须使用v-html标签了 否则 标签会被当成普通文本展示出来 -->
+        <!-- 不过这个东西尽量少用，会引发xss攻击，尤其是在表单的模块 -->
+        <span v-html="dohtml"></span>
+        
+    </div>
+
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: 'hello world ',
+                dohtml:"<h2>hello world</h2"
+            }
+        })
+    </script>
+</body>
+
+</html>
