@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>v-on</title>
+    <meta charset="utf-8">
+    <!-- width: viewport 的宽度[device-width | pixel_value]width如果直接设置pixel_value数值，大部分的安卓手机不支持，但是iOS支持； -->
+    <meta name="viewport" content="width=device-width,inital-scale=1">
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+</head>
+
+<body>
+    <h1>v-on</h1>
+    <hr>
+    <div id="app">
+        本场分数：{{score}}
+        <p>
+            <!-- 这里注意 两种写法 其实都可以 -->
+            <button v-on:click="addScore"> add score</button>
+            <button @click="subScore"> sub score</button><br />
+            
+            <!-- v-model 这里其实就是一个数据绑定 -->
+            <!-- 这里也可以用 v-on:keyup.13 也可以实现类似的效果，绑定键盘码  可以百度查询键盘键值表 -->
+            <input type="text" v-on:keyup.enter="onEnter" v-model="score2">
+
+
+        </p>
+    </div>
+
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data: {
+                score: 0,
+                score2: 0
+            },
+            // 这里一定要注意是methods 不是method
+            methods: {
+                addScore: function () {
+                    this.score++;
+                },
+                subScore: function () {
+                    this.score--;
+                },
+                onEnter: function () {
+                    //这里要注意 如果不加这个parseInt的值  这里会变成什么
+                    this.score = this.score + parseInt(this.score2)
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
