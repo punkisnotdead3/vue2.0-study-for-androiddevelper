@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>v-model</title>
+    <meta charset="utf-8">
+    <!-- width: viewport 的宽度[device-width | pixel_value]width如果直接设置pixel_value数值，大部分的安卓手机不支持，但是iOS支持； -->
+    <meta name="viewport" content="width=device-width,inital-scale=1">
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+</head>
+
+<body>
+    <h1>v-model</h1>
+    <hr>
+    <div id="app">
+        <p>{{message}}</p>
+        <h2>文本框</h2>
+        <!-- 双向数据绑定 -->
+        <p><input type="text" v-model="message"></p>
+
+        <!-- 注意看lazy的效果 当鼠标不在输入框的焦点的时候 message2的值才会发生变化 -->
+        <p>{{message2}}</p>
+        <p><input type="text" v-model.lazy="message2"></p>
+        <!-- 当为数字的时候 绑定才会生效，并且如果不是数字的时候 输入框里面的东西也会被删除 -->
+        <p>model.number<input type="text" v-model.number="message2"></p>
+        <!-- trim就不用多说了吧 -->
+        <p>model.trim<input type="text" v-model.trim="message2"></p>
+        <hr>
+
+        <h3>文本域</h3>
+        <textarea cols="30" rows="10" v-model="message2"></textarea>
+
+        <!-- -->
+        <h3>多选框绑定一个值</h3>
+        <input type="checkbox" id="isTrue" v-model="istrue">
+        <label for="isTrue">{{istrue}}</label>
+        <hr>
+        <p>
+            <!-- 多选框  绑定数组 注意看 数组names的值 -->
+            <input type="checkbox" id="duoxuan" value="wuyue" v-model="names">
+            <label for="duoxuan">wuyue</label>
+            <input type="checkbox" id="duoxuan2" value="wuyue2" v-model="names">
+            <label for="duoxuan2">wuyue2</label>
+            <input type="checkbox" id="duoxuan3" value="wuyue3" v-model="names">
+            <label for="duoxuan3">wuyue3</label>
+            <br>
+            <span>{{names}}</span>
+        </p>
+
+        <hr>
+        <h3>单选框</h3>
+        <input type="radio" id="one" value="男" v-model="sex">
+        <label for="one">男</label>
+        <input type="radio" id="one" value="女" v-model="sex">
+        <label for="one">女</label>
+        <span>{{sex}}</span>
+
+    </div>
+
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: 'hello world',
+                message2: 'hello world lazy',
+                istrue: true,
+                names: [],
+                sex: '男'
+            }
+        })
+    </script>
+</body>
+
+</html>
