@@ -2,9 +2,8 @@
 <html lang="en">
 
 <head>
-    <title>Hello World</title>
+    <title>v-if&v-else&v-show</title>
     <meta charset="utf-8">
-    <!-- width: viewport 的宽度[device-width | pixel_value]width如果直接设置pixel_value数值，大部分的安卓手机不支持，但是iOS支持； -->
     <meta name="viewport" content="width=device-width,inital-scale=1">
     <script type="text/javascript" src="../assets/js/vue.js"></script>
 </head>
@@ -13,14 +12,20 @@
     <h1>HelloWorld</h1>
     <hr>
     <div id="app">
-        {{message}}
+        <div v-if="isLogin">你好 吴越</div>
+        <div v-else>请登录</div>
+         
+        <!-- v-show 调整css display的属性  而v-if是在需要的时候才加载 -->
+        <div v-show="isShow">显示</div>
+
     </div>
 
     <script type="text/javascript">
         var app = new Vue({
             el: '#app',
             data: {
-                message: 'hello world 1111'
+                isLogin:true,
+                isShow:false
             }
         })
     </script>
