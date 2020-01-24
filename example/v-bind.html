@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>v-bind</title>
+    <meta charset="utf-8">
+    <!-- width: viewport 的宽度[device-width | pixel_value]width如果直接设置pixel_value数值，大部分的安卓手机不支持，但是iOS支持； -->
+    <meta name="viewport" content="width=device-width,inital-scale=1">
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+</head>
+
+<body>
+    <h1>v-bind 主要来改变 html标签中的属性</h1>
+    <hr>
+    <div id="app">
+        <img height="200px" v-bind:src="imgSrc"><br>
+        <!-- 新打开一个网页 ，注意这个v-bind的绑定方式 是个简写 -->
+        <a :href="webUrl" target="_blank">百度</a>
+
+        <hr>
+
+
+        <div :class="className"> 绑定class</div>
+        <!-- 这个例子 在开发过程中 更有意义 -->
+        <div :class="{classA:isOK}"> 根据条件 绑定class </div>
+
+        <hr>
+
+        <div>
+            <!-- 选择框 与isok绑定， 然后来动态改变isok的值，从而驱动 上面的 div 是否使用 classA -->
+            <input type="checkbox" id="isOKid" v-model="isOK">
+            <label for="isOKid">isOK={{isOK}}</label>
+
+        </div>
+
+        <!-- 可以用数组来指定 class -->
+        <div :class="[cA,cB]">
+            adasdasda
+
+        </div>
+
+        <!-- 三元运算符 class -->
+        <div :class="isOK?cA:cB">
+            三元运算符
+
+        </div>
+        <hr>
+        <div :style="styleA">
+            绑定style
+        </div>
+
+
+
+
+    </div>
+
+
+
+
+
+    <style>
+        .classA {
+            color: red;
+        }
+
+        .classB {
+            font-size: 350%;
+        }
+    </style>
+
+
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data: {
+                imgSrc: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1579876478340&di=35ca5d1bf1d3f746d7bdacd96155b603&imgtype=0&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F37f253c01f38418116060e8d072c85ddd3d5981e54dec-cG7316_fw658',
+                webUrl: 'http://www.baidu.com',
+                className: 'classB',
+                isOK: true,
+                cA: 'classA',
+                cB: 'classB',
+                styleA: 'font-size: 300%;color: yellow'
+            }
+        })
+    </script>
+</body>
+
+</html>
