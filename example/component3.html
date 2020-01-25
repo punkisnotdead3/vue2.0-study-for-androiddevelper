@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>component3</title>
+    <meta charset="utf-8">
+    <!-- width: viewport 的宽度[device-width | pixel_value]width如果直接设置pixel_value数值，大部分的安卓手机不支持，但是iOS支持； -->
+    <meta name="viewport" content="width=device-width,inital-scale=1">
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+</head>
+
+<body>
+    <h1>component3</h1>
+    <hr>
+    <div id="app">
+        <wuyue></wuyue>
+        <hr>
+        <wuyue2></wuyue2>
+    </div>
+
+
+
+
+    <script type="text/javascript">
+        //  在构造器外部 声明了一个局部的组件
+        var wuyuecomponent = {
+            template: `<div style="color:red;"> wuyue from nanjing</div>`
+        }
+
+        // 注意下面这种父组件引用子组件的方法
+        var citycomponent = {
+            template: `<div style="color:green;">nanjing of china</div>`
+        }
+
+        var wuyueparent = {
+            template: `
+                <div>
+                    <p>这个组件引用了另外的一个子组件</p>
+                    <city></city>    
+                </div>
+            `,
+            components: {
+                "city": citycomponent
+            }
+        }
+
+        var app = new Vue({
+            el: '#app',
+            components: {
+                "wuyue": wuyuecomponent,
+                "wuyue2": wuyueparent
+            }
+        })
+    </script>
+</body>
+
+</html>
