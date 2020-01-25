@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>vue 生命周期</title>
+    <meta charset="utf-8">
+    <!-- width: viewport 的宽度[device-width | pixel_value]width如果直接设置pixel_value数值，大部分的安卓手机不支持，但是iOS支持； -->
+    <meta name="viewport" content="width=device-width,inital-scale=1">
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+</head>
+
+<body>
+    <h1>vue 生命周期</h1>
+    <hr>
+    <div id="app">
+        {{count}}
+
+        <p><button @click="add">add</button></p>
+    </div>
+
+    <p><button onclick="app.$destroy()">解绑</button></p>
+
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data: {
+                count: 1
+            },
+            methods: {
+                add: function () {
+                    this.count++
+                }
+            },
+            beforeCreate: function () {
+                // 可以在这里 读取数据
+                console.log('1- 初始化之前')
+            },
+            created: function () {
+                // 实际项目中 可以在这里加载loading动画
+                console.log('2-创建完成')
+            },
+            beforeMount: function () {
+                console.log('3-beforeMount 挂载之前')
+            },
+            mounted: function () {
+                // 可以在这里 结束掉你的加载动画 然后正常展示动画
+                console.log('4-mounted 被挂载之后')
+            },
+            beforeUpdate: function () {
+                console.log('5-beforeUpdate 数据更新前')
+            },
+            updated: function () {
+                console.log('6-updated 被更新后')
+
+            },
+            activated: function () {
+                console.log('7-activated')
+            },
+            deactivated: function () {
+                console.log('8-deactivated')
+
+            },
+            beforeDestroy: function () {
+                console.log('9-beforeDestroy 销毁之前')
+            },
+            destroyed: function () {
+                console.log('10-destroyed 销毁之后')
+            }
+        })
+    </script>
+</body>
+
+</html>
