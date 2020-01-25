@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>template的 三种写法</title>
+    <meta charset="utf-8">
+    <!-- width: viewport 的宽度[device-width | pixel_value]width如果直接设置pixel_value数值，大部分的安卓手机不支持，但是iOS支持； -->
+    <meta name="viewport" content="width=device-width,inital-scale=1">
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+</head>
+
+<body>
+    <h1>template的三种写法</h1>
+    <hr>
+    <div id="app">
+        {{message}}
+    </div>
+
+
+    <div id="app2">
+
+        <template id="dd2">
+            <h2 style="color:green">template模版</h2>
+        </template>
+    </div>
+
+    <!-- 这种也可以通过 src标签  来引入 外部的 模块 -->
+    <div id="app3">
+        <script type="x-template" id="dd3">
+            <h2 style="color:yellow">Script模版</h2>
+        </script>
+
+    </div>
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: 'hello world '
+            },
+            template: `
+                <h2 style="color:red">选项模版</h2>
+            `
+        })
+
+        //这种适合 有新手切好图以后 直接把这个复杂的代码拷贝过来
+        //然后我们就可以直接使用了  就有点像android 开发里面 xml里面的include 标签一样
+        var app2 = new Vue({
+            el: '#app2',
+            data: {
+                message: 'hello world 2'
+            },
+            template: "#dd2"
+        })
+
+        var app3 = new Vue({
+            el: '#app3',
+            data: {
+                message: 'hello world 3'
+            },
+            template: "#dd3"
+        })
+    </script>
+</body>
+
+</html>
