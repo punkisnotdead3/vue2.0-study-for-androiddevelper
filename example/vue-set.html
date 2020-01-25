@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>vue set
+
+    </title>
+    <meta charset="utf-8">
+    <!-- width: viewport 的宽度[device-width | pixel_value]width如果直接设置pixel_value数值，大部分的安卓手机不支持，但是iOS支持； -->
+    <meta name="viewport" content="width=device-width,inital-scale=1">
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+</head>
+
+<body>
+    <h1>vue set</h1>
+    <hr>
+    <div id="app">
+        {{count}}
+    </div>
+    <!-- 看这里的p标签 是没有绑定vue的 也不在上面那个标签的里面 -->
+    <p><button onclick="add()">add</button></p>
+
+    <hr>
+
+    <div id="app2">
+        {{count}}
+        <ul>
+            <li v-for="item in arr">{{item}}</li>
+
+        </ul>
+    </div>
+
+    <p><button onclick="add2()">add2</button></p>
+
+
+    <script type="text/javascript">
+        function add() {
+            // 下面三种都可以 
+            // Vue.set(outData,'count',2)    
+            app.count++
+            // outData.count++
+        }
+
+        function add2() {
+            //如果把 这个 count++ 去掉 那么 下面改变数组的代码就不会生效了
+            // app2.count++
+            // app2.arr[1] = 'ddd'
+
+            //这个时候set 就有用武之地了， 即使没有count++ 也可以通过set 来修改数组的值
+            //TODO vue set存在的意义 实际工作中非常有用
+            Vue.set(app2.arr, 1, 'ddd')
+        }
+
+        var outData = {
+            count: 1,
+            goods: 'car'
+        }
+
+        var outData2 = {
+            count: 12,
+            arr: ['aaa', 'bbb', 'ccc']
+        }
+        var app = new Vue({
+            el: '#app',
+            data: outData
+        })
+
+        var app2 = new Vue({
+            el: '#app2',
+            data: outData2
+        })
+    </script>
+</body>
+
+</html>
