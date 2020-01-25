@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>component2</title>
+    <meta charset="utf-8">
+    <!-- width: viewport 的宽度[device-width | pixel_value]width如果直接设置pixel_value数值，大部分的安卓手机不支持，但是iOS支持； -->
+    <meta name="viewport" content="width=device-width,inital-scale=1">
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+</head>
+
+<body>
+    <h1>component2</h1>
+    <hr>
+    <div id="app3">
+        <!-- 尽量不要写 from-here 因为vue不支持 - 这个东西，除非 你用小驼峰的写法来写。这里就不继续扩展了 -->
+        <wuyuepart here="武汉"></wuyuepart>
+    </div>
+
+
+    <div id="app4">
+        <!-- 这里的组件的属性的值 是与vue 绑定在一起的 而不是根据属性来的，这里要注意 -->
+        <wuyuepart2 v-bind:here="cityname"></wuyuepart2>
+    </div>
+
+
+
+    <script type="text/javascript">
+    
+        var app3 = new Vue({
+            el: '#app3',
+            components: {
+                "wuyuepart": {
+                    template: `<div style='color:red'>吴越来自于{{here}}</div>`,
+                    // props这个选项后面跟着的是数组 ，很好理解啊，因为你的自定义布局里面 会存在多个属性，肯定不止一个属性啊
+                    props:['here']
+                }
+            }
+        })
+
+
+        var app4 = new Vue({
+            el: '#app4',
+            data:{
+                cityname:'南京'
+            },
+            components: {
+                "wuyuepart2": {
+                    template: `<div style='color:green'>吴越来自于{{here}}</div>`,
+                    // props这个选项后面跟着的是数组 ，很好理解啊，因为你的自定义布局里面 会存在多个属性，肯定不止一个属性啊
+                    props:['here']
+                }
+            }
+        })
+
+    </script>
+</body>
+
+</html>

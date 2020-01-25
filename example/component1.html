@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>component1</title>
+    <meta charset="utf-8">
+    <!-- width: viewport 的宽度[device-width | pixel_value]width如果直接设置pixel_value数值，大部分的安卓手机不支持，但是iOS支持； -->
+    <meta name="viewport" content="width=device-width,inital-scale=1">
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+</head>
+
+<body>
+    <h1>component1</h1>
+    <hr>
+    <div id="app">
+        <wuyue></wuyue>
+    </div>
+
+    <div id="app2">
+        <wuyue></wuyue>
+
+    </div>
+    <!-- //下面这个标签是不会生效的，虽然是全局组件 全局组件也一定要在vue包裹里的才有效，否则无效  这里一定要注意-->
+    <!-- <wuyue></wuyue> -->
+
+    <div id="app3">
+        <!-- 这个局部组件 你放到其他div里面  就是无效的 vue 就会报错了 -->
+        <wuyuepart></wuyuepart>
+    </div>
+
+
+
+    <script type="text/javascript">
+        Vue.component('wuyue', {
+            template: `<div style='color:red'>全局组件</div>`
+        })
+
+        var app = new Vue({
+            el: '#app'
+        })
+        var app2 = new Vue({
+            el: '#app2'
+        })
+
+        var app3 = new Vue({
+            el: '#app3',
+            components: {
+                "wuyuepart": {
+                    template: `<div style='color:green'>局部组件</div>`    
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
