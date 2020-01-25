@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>vue directive 自定义指令</title>
+    <meta charset="utf-8">
+    <!-- width: viewport 的宽度[device-width | pixel_value]width如果直接设置pixel_value数值，大部分的安卓手机不支持，但是iOS支持； -->
+    <meta name="viewport" content="width=device-width,inital-scale=1">
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+</head>
+
+<body>
+    <h1>vue directive 自定义指令</h1>
+    <hr>
+    <div id="app">
+        <div v-wuyue="color">{{num}}</div>
+
+        <p><button @click="add">add</button></p>
+
+
+
+        <div v-wuyuemore="color">{{num}}</div>
+
+
+    </div>
+
+    <!-- 注意解绑的组件 是在上面那个组件外面的 -->
+    <p> <button onclick="unbind()">解绑</button> </p>
+
+    <script type="text/javascript">
+        // 解绑函数
+        function unbind() {
+            app.$destroy();
+        }
+
+        //el 其实就是 所属元素  比如这里绑定 v-wuyue 的 元素 是div标签  那么 el的打印就是他
+        Vue.directive("wuyue", function (el, binding) {
+            console.log(el)
+            // binding就是个对象，这里一定要打开控制台 去看一看实际的输出
+            // console.log(binding)
+            el.style = "color:" + binding.value
+        })
+        //生命周期 钩子函数
+        Vue.directive("wuyuemore", {
+            bind: function () {
+                console.log('被绑定  1 - bind')
+            },
+            inserted: function () {
+                console.log('绑定到节点  2-inserted')
+            },
+            update: function () {
+                console.log('组件更新 3-updated')
+            },
+            componentUpdated: function () {
+                console.log('组件更新完成   4-componentUpated')
+            },
+            unbind: function () {
+                console.log('解绑  5-unbind')
+
+            }
+        })
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                num: 10,
+                color: 'red'
+            },
+            methods: {
+                add: function () {
+                    this.num++
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
