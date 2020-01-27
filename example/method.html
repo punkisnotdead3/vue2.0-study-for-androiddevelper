@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>method option</title>
+    <meta charset="utf-8">
+    <!-- width: viewport 的宽度[device-width | pixel_value]width如果直接设置pixel_value数值，大部分的安卓手机不支持，但是iOS支持； -->
+    <meta name="viewport" content="width=device-width,inital-scale=1">
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+</head>
+
+<body>
+    <!-- 主要作用其实就是绑定一些 事件，定义一些函数 -->
+
+    <h1>method option</h1>
+    <hr>
+    <div id="app">
+        {{a}}
+        <p> <button @click="add('')">add</button></p>
+        <p> <button @click="add(2)">add</button></p>
+
+        <!-- 这里主要是展示 传递键盘鼠标事件的写法 -->
+        {{b}}
+        <p> <button @click="addb(2,$event)">addb</button></p>
+        <hr>
+        <!-- 自定义组件 -->
+        <custombtn @click="add(2)"></custombtn>
+        <!-- 上面这个是没用的，只有下面这个写法才有用， 所以要注意自定义组件 使用method的时候的写法  这个在实际开发中 经常用到-->
+        <custombtn @click.native="add(2)"></custombtn>
+
+    </div>
+
+    <!-- 这样写显然是无效的 -->
+    <button onclick="add(2)">外部button 调用 vue里面的方法 写法1</button>
+    <button onclick="app.add(3)">外部button 调用 vue里面的方法 写法2 有效的</button>
+
+
+
+
+    <script type="text/javascript">
+        var btn = {
+            template: `<button>自定义组件</button>`
+        }
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                a: 0,
+                b: 0
+            },
+            components: {
+                "custombtn": btn
+            },
+            methods: {
+                add: function (num) {
+                    if (num != '') {
+                        this.a = this.a + num
+                    } else {
+                        this.a = -1
+                    }
+                },
+                addb: function (num, event) {
+                    //捕捉事件 可以打印出来 看看这个值 是啥
+                    console.log(event)
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
