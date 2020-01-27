@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>mixins option</title>
+    <meta charset="utf-8">
+    <!-- width: viewport 的宽度[device-width | pixel_value]width如果直接设置pixel_value数值，大部分的安卓手机不支持，但是iOS支持； -->
+    <meta name="viewport" content="width=device-width,inital-scale=1">
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+</head>
+
+<body>
+    <!-- 1.写好构造器以后 临时增加方法 可以用这个东西 减少对源代码的污染  2.可以当做公共方法 实现代码重用 -->
+    <h1>mixins option</h1>
+    <hr>
+    <div id="app">
+        {{num}}
+        <p><button @click="add">add</button></p>
+    </div>
+
+    <script type="text/javascript">
+        // 我们临时的  新增了这个观察者，updated就是vue自己的生命周期， 用mixins 关联起来，避免在vue的构造器代码里增加东西
+        // 这个地方的写法 有点像kotlin
+        var addConsole = {
+
+            updated: function () {
+                console.log('data 变化')
+            }
+        }
+
+        // 全局的混入 是最先执行的，
+        Vue.mixin({
+            updated() {
+                console.log('全局api的 updated')
+            },
+        })
+
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                num: 1
+            },
+            methods: {
+                add: function () {
+                    this.num++
+                }
+            },
+            mixins: [
+                addConsole
+            ],
+            // 记得看下效果，vue里面都是混入的先执行，原生的后执行
+            updated() {
+                console.log('原生的updated')
+            },
+        })
+    </script>
+</body>
+
+</html>
