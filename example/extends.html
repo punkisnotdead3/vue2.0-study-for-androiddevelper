@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>extends option</title>
+    <meta charset="utf-8">
+    <!-- width: viewport 的宽度[device-width | pixel_value]width如果直接设置pixel_value数值，大部分的安卓手机不支持，但是iOS支持； -->
+    <meta name="viewport" content="width=device-width,inital-scale=1">
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+</head>
+
+<body>
+    <!-- 1.写好构造器以后 临时增加方法 可以用这个东西 减少对源代码的污染  2.可以当做公共方法 实现代码重用 -->
+    <h1>extends option</h1>
+    <hr>
+    <div id="app">
+        <!-- {{num}} -->
+        <!-- delimiters 选项 可以改变{{}}这样的写法 -->
+        ${num}
+        <p><button @click="add">add</button></p>
+    </div>
+
+    <script type="text/javascript">
+        //扩展和混入很相近
+        var extendsObject = {
+            updated() {
+                console.log('我是扩展的update  2')
+            },
+        }
+
+
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                num: 1
+            },
+            methods: {
+                add: function () {
+                    console.log('我是原生的方法  1')
+                    this.num++
+                }
+            },
+            // 记得看下效果，vue里面都是混入的先执行，原生的后执行
+            updated() {
+                console.log('原生的updated 3')
+            },
+            // 扩展只能放一个对象，不能放数组，混入可以放数组
+            extends: extendsObject,
+            delimiters: ['${', '}']
+        })
+    </script>
+</body>
+
+</html>
