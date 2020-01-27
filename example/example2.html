@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>example method 02</title>
+    <meta charset="utf-8">
+    <!-- width: viewport 的宽度[device-width | pixel_value]width如果直接设置pixel_value数值，大部分的安卓手机不支持，但是iOS支持； -->
+    <meta name="viewport" content="width=device-width,inital-scale=1">
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+</head>
+
+<body>
+    <!-- 这个例子需要打开chrome 控制面板 好好看看 -->
+    <h1>example method 02</h1>
+    <hr>
+    <div id="app">
+    </div>
+
+    <p> <button onclick="destroy()">destroy</button></p>
+    <p> <button onclick="reload()">reload 刷新</button></p>
+    <p> <button onclick="tick()">更新数据以后的回调</button></button></p>
+
+    <script type="text/javascript">
+        // 挂载的例子 相对来说 还是比较简单的
+        var wuyue = Vue.extend({
+            template: `<p>{{message}}</p>`,
+            data: function () {
+                return {
+                    message: 'hello wuyue'
+                }
+            },
+            mounted() {
+                console.log("生命周期 mounted")
+            },
+            destroyed() {
+                console.log("生命周期 destroyed")
+
+            },
+            updated() {
+                console.log("生命周期 updated")
+            },
+        })
+
+        var vm = new wuyue().$mount('#app')
+
+        //注意下面这些写法 和 vue本身的生命周期的函数 的 函数名 是有区别的
+        function destroy() {
+            vm.$destroy();
+        }
+
+        function reload() {
+            vm.$forceUpdate();
+        }
+        //这个地方我感觉 和updated 也没啥区别？
+        function tick() {
+            vm.message = 'update message info hello wuyue2'
+            vm.$nextTick(function () {
+                console.log('message 更新完毕以后 就回调我了')
+            })
+        }
+    </script>
+</body>
+
+</html>

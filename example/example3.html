@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>example 3</title>
+    <meta charset="utf-8">
+    <!-- width: viewport 的宽度[device-width | pixel_value]width如果直接设置pixel_value数值，大部分的安卓手机不支持，但是iOS支持； -->
+    <meta name="viewport" content="width=device-width,inital-scale=1">
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+</head>
+
+<body>
+    <h1>example 3</h1>
+    <hr>
+    <div id="app">
+        <!-- 这下面就是 on 实例事件的 写法 -->
+        {{num}}
+        <p><button @click="add">add</button></p>
+        <p><button onclick="reduce()">reduce</button></p>
+        <p><button onclick="reduceOnce()">reduce_once 只执行一次</button></p>
+        <p><button onclick="closeLink()">关闭事件的联系,点击以后 就再也没办法 reduce了</button></p>
+
+    </div>
+
+
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data: {
+                num: 1
+            },
+            methods: {
+                add: function () {
+                    this.num++
+                }
+            },
+        })
+
+        //首先 通过 on 在外面注册一个方法，
+        app.$on("reduce_1", function () {
+            console.log("执行了reduce 方法");
+            this.num--
+        })
+        // once是只执行一次
+        app.$once("reduce_once", function () {
+            console.log("执行了reduce_once方法");
+            this.num--
+        })
+
+        // 然后通过 定义的外部函数里面 来发送一个消息 来触发刚才我们在外部定义的函数
+        function reduce() {
+            app.$emit("reduce_1")
+        }
+
+        // 然后通过 定义的外部函数里面 来发送一个消息 来触发刚才我们在外部定义的函数
+        function reduceOnce() {
+            app.$emit("reduce_once")
+        }
+
+        function closeLink() {
+            app.$off("reduce_1")
+        }
+    </script>
+</body>
+
+</html>
