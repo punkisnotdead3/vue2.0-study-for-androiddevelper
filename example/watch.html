@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>watch option</title>
+    <meta charset="utf-8">
+    <!-- width: viewport 的宽度[device-width | pixel_value]width如果直接设置pixel_value数值，大部分的安卓手机不支持，但是iOS支持； -->
+    <meta name="viewport" content="width=device-width,inital-scale=1">
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+</head>
+
+<body>
+    <h1>watch option</h1>
+    <hr>
+    <div id="app">
+        <p>今日温度:{{temperature}}</p>
+        <p>穿衣:{{clothes}}</p>
+
+        <!-- 这个watch的机制就有点类似于java世界中的观察者模式，android开发里的那些广播监听 和这个差不多。只不过这里更加纯粹。 -->
+        <p><button @click="add">升高温度</button> </p>
+        <p><button @click="sub">降低温度</button> </p>
+    </div>
+
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data: {
+                temperature: 13,
+                clothes: '夹克衫'
+            },
+            methods: {
+                add: function () {
+                    this.temperature += 5
+                },
+                sub: function () {
+                    this.temperature -= 5
+                }
+            },
+            watch: {
+                temperature: function (newVal, oldVal) {
+                    // console.log(newVal + "      " + oldVal)
+                    if (newVal > 28) {
+                        this.clothes = "短袖"
+                    } else if (newVal > 20) {
+                        this.clothes = "长袖"
+                    } else if (newVal < 20) {
+                        this.clothes = "夹克衫"
+                    }
+                }
+            }
+        })
+        //注意在外部监听的写法
+        app.$watch('temperature', function (newVal, oldVal) {
+            console.log("哈哈哈 在外部也可以监听 newVal==" + newVal + "   oldVal==" + oldVal)
+        })
+    </script>
+</body>
+
+</html>
