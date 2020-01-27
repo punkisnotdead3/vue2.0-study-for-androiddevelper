@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>computed option</title>
+    <meta charset="utf-8">
+    <!-- width: viewport 的宽度[device-width | pixel_value]width如果直接设置pixel_value数值，大部分的安卓手机不支持，但是iOS支持； -->
+    <meta name="viewport" content="width=device-width,inital-scale=1">
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+</head>
+
+<body>
+    <!-- 这个选项主要用来对 源数据加工，比如格式编辑，排序，大小写转换，等等。 类似于android开发中的 serverbean to uibean -->
+    <h1>computed option</h1>
+    <hr>
+    <div id="app">
+        price:{{price}}
+        <hr>
+        newPrice:{{newPrice}}
+        <br>
+        <hr>
+
+        <!-- <p>{{appNewsList}}</p> -->
+        <ul>
+            <li v-for="item in revertNews">{{item.title}} -----{{item.data}}</li>
+        </ul>
+
+        <ul>
+            <li v-for="item in appNewsList">{{item.title}} -----{{item.data}}</li>
+        </ul>
+
+
+    </div>
+
+    <script type="text/javascript">
+        var newsList = [{
+                title: '标题1',
+                data: '2020-01-28'
+            },
+            {
+                title: '标题2',
+                data: '2020-01-24'
+            },
+            {
+                title: '标题3',
+                data: '2020-01-23'
+            },
+            {
+                title: '标题4',
+                data: '2020-01-29'
+            },
+            {
+                title: '标题5',
+                data: '2020-01-31'
+            }
+        ]
+
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                price: 100,
+                appNewsList:newsList
+            },
+            computed: {
+                newPrice: function () {
+                    return '$' + this.price + '元'
+                },
+                revertNews:function(){
+                    // 这里要注意哦，reverse 会改变原来的数组 也就是说 appNewsList也被改变了 sort方法也是 也会改变原来的数组
+                    return this.appNewsList.reverse()
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>
