@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Hello World</title>
+    <meta charset="utf-8">
+    <!-- width: viewport 的宽度[device-width | pixel_value]width如果直接设置pixel_value数值，大部分的安卓手机不支持，但是iOS支持； -->
+    <meta name="viewport" content="width=device-width,inital-scale=1">
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+</head>
+
+<body>
+    <h1>HelloWorld</h1>
+    <hr>
+    <div id="app">
+        <wuyue>
+            <span slot="blogUrlKey">{{wuyueData.blogUrl}}</span>
+            <!-- 你当然也可以不用定义好的值 临时变卦写一个值 也是可以的 -->
+            <span slot="nickName">南京彭于晏</span>
+
+        </wuyue>
+    </div>
+    <template id="tepID">
+        <!-- 这里一定要注意 最外部必须用一个div 来包裹 -->
+        <div>
+            <p>博客地址: <slot name="blogUrlKey"></slot>
+            </p>
+            <p>网名 <slot name="nickName"></slot>
+            </p>
+            <p>技术栈</p>
+        </div>
+
+    </template>
+
+
+
+    <script type="text/javascript">
+        // 这里创建的对象就是 将js 和 我们实际的html代码关联起来 
+        var tepObject = {
+            template: '#tepID'
+        }
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                wuyueData: {
+                    blogUrl: 'http://www.baidu.com',
+                    netName: 'wuyue 大帅哥',
+                    skill: 'go java js'
+                }
+            },
+            // 这里的key 就是你自定义组件的名字，value就是 你自定义组件的js对象
+            components: {
+                "wuyue": tepObject
+            }
+        })
+    </script>
+</body>
+
+</html>
