@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>propsData option</title>
+    <meta charset="utf-8">
+    <!-- width: viewport 的宽度[device-width | pixel_value]width如果直接设置pixel_value数值，大部分的安卓手机不支持，但是iOS支持； -->
+    <meta name="viewport" content="width=device-width,inital-scale=1">
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+</head>
+
+<body>
+    <!-- 实际开发中 这种写法  不如 组件 用的不多 ，知道就好 -->
+    <h1>propsData option</h1>
+    <hr>
+
+    <!-- 这个例子用来回顾一下,  扩展的写法 -->
+    <header></header>
+
+    <!-- 这里主要展示 扩展怎么传值 -->
+    <headercangetvalue></headercangetvalue>
+
+
+
+    <script type="text/javascript">
+        var header_a = Vue.extend({
+            template: `
+            <p>{{message}}</p>
+            `,
+            data: function () {
+                return {
+                    message: 'hello,I am header'
+                }
+            }
+        })
+        //千万不要忘记挂载 你的扩展 否则是不生效的哟
+        new header_a().$mount('header');
+
+        //下面这个例子 就可以接受一个参数值了
+
+        var header_b = Vue.extend({
+            template: `
+            <p>{{message}}-from-{{address}}</p>
+            `,
+            data: function () {
+                return {
+                    message: 'hello,I am header'
+                }
+            },
+            props: ['address']
+        })
+        //千万不要忘记挂载 你的扩展 否则是不生效的哟
+        new header_b({
+            propsData: {
+                address: '南京'
+            }
+        }).$mount('headercangetvalue');
+    </script>
+</body>
+
+</html>
